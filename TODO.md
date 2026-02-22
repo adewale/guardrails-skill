@@ -1,6 +1,7 @@
 # TODO: Publishing and Distribution
 
 Steps to get the guardrails skill discoverable across the ecosystem.
+See `SUBMISSIONS.md` for URLs, identifiers, and update processes.
 
 ---
 
@@ -11,82 +12,28 @@ Steps to get the guardrails skill discoverable across the ecosystem.
 - [x] Add install instructions to README
 - [x] Set repo description: "Quality gates wired into the Claude Code agent lifecycle"
 - [x] Add GitHub topics: `claude-code`, `claude-code-skill`, `ai-agents`, `agent-skills`, `claude-skills`
-
-## Validation
-
-- [x] ~~agentskills spec validation~~ — Discarded. Directory name `guardrails-skill` vs
-  `name: guardrails` mismatch only exists in the source repo. Both `npx skills add` and
-  `git clone ... ~/.claude/skills/guardrails` install into a correctly named directory.
-
-## skills.sh (Vercel)
-
-skills.sh auto-indexes skills when users install them via the CLI. No manual submission.
-Listing happens organically as installs accumulate.
-
-- [x] Verify the skill installs cleanly: `npx skills add adewale/guardrails-skill`
-- [x] Add `npx skills add` as an alternative install method in the README
+- [x] ~~agentskills spec validation~~ — Discarded. Name mismatch only exists in source repo.
+- [x] Verify `npx skills add adewale/guardrails-skill` installs cleanly
 - [x] Add skills.sh URL to README: https://skills.sh/adewale/guardrails-skill/guardrails
-- [ ] Owner profile page (https://skills.sh/adewale) is 404 until the skill accumulates
-  enough installs. Profile pages are generated once an owner has meaningful install activity.
-- [ ] Reference: https://skills.sh/docs
+- [x] Restructure as Claude Code plugin (v0.2)
+- [x] Submit PR to ComposioHQ/awesome-claude-skills: https://github.com/ComposioHQ/awesome-claude-skills/pull/245
 
-## Claude Code Plugin Marketplace
+## Waiting on Prerequisites
 
-- [x] Restructure repo: move SKILL.md to `skills/guardrails/SKILL.md`
-- [x] Create `.claude-plugin/plugin.json`
-- [x] Create `.claude-plugin/marketplace.json`
-- [ ] Submit to `anthropics/claude-plugins-official` for verified listing
-- [ ] Reference: https://code.claude.com/docs/en/plugins
+- [ ] **anthropics/claude-plugins-official** — Submit via Google Form at
+  https://clau.de/plugin-directory-submission (external PRs are auto-closed).
+  See `SUBMISSIONS.md` for required fields.
+- [ ] **hesreallyhim/awesome-claude-code** — Submit via issue form after March 1, 2026
+  (must be 1 week old). Must be submitted by a human. See `SUBMISSIONS.md` for form fields.
+- [ ] **travisvn/awesome-claude-skills** — Submit PR after reaching 10+ GitHub stars.
+  Must not appear AI-generated. See `SUBMISSIONS.md` for entry format.
 
-## Awesome Lists
+## Automatic (No Action Needed)
 
-Each list has different submission requirements. **Do not submit until the repo has 10+ stars**
-(required by travisvn, good practice for all).
-
-### ComposioHQ/awesome-claude-skills (36.7k stars)
-- Submit via: PR to `master` branch
-- Category: Development & Code Tools
-- Entry format:
-  ```
-  - [Guardrails](https://github.com/adewale/guardrails-skill) - Code quality verification gates wired into the agent lifecycle with lifecycle hooks, circuit breakers, config protection, and diagnostic escalation. *By [@adewale](https://github.com/adewale)*
-  ```
-- PR title: `Add Guardrails skill`
-- [ ] Submit PR
-
-### hesreallyhim/awesome-claude-code (24.6k stars)
-- Submit via: **Issue form only** (not a PR — PRs are rejected)
-- URL: https://github.com/hesreallyhim/awesome-claude-code/issues/new?template=recommend-resource.yml
-- Category: Agent Skills
-- Must be publicly available for at least 1 week before submitting
-- Description for the form:
-  > Code quality verification gates wired into the Claude Code agent lifecycle. Enforces
-  > checks at every stop and commit, includes a circuit breaker that forces diagnostic
-  > tool-building after repeated failures, protects test configs from weakening, and gates
-  > high-risk operations. Ships with diagnostic escalation catalogs and language-specific
-  > tool defaults.
-- [ ] Wait 1 week after publish date
-- [ ] Submit via issue form (must be submitted by a human, not AI)
-
-### travisvn/awesome-claude-skills (7.5k stars)
-- Submit via: PR to `main` branch
-- Category: Community Skills > Individual Skills table
-- **Requires 10+ GitHub stars** (auto-closed below threshold)
-- Entry format (table row):
-  ```
-  | **[guardrails-skill](https://github.com/adewale/guardrails-skill)** | Code quality verification gates wired into the agent lifecycle with lifecycle hooks, circuit breakers, config protection, and diagnostic escalation |
-  ```
-- PR title: `Add guardrails-skill`
-- PRs must not appear AI-generated
-- [ ] Wait for 10+ stars
-- [ ] Submit PR (write it yourself)
-
-## Auto-Indexing Directories
-
-These index public GitHub repos automatically. No submission needed, but some have thresholds.
-
-- [ ] **skillsmp.com** — auto-indexes repos with 2+ stars. Should appear once the repo has 2 stars.
-- [ ] **claude-plugins.dev** — auto-indexes from GitHub. No action needed.
-- [ ] **skillhub.club** — auto-indexes. No action needed.
+- [ ] **skillsmp.com** — auto-indexes repos with 2+ stars
+- [ ] **claude-plugins.dev** — auto-indexes from GitHub
+- [ ] **skillhub.club** — auto-indexes from GitHub
+- [ ] **skills.sh owner profile** (https://skills.sh/adewale) — appears after enough installs
 
 ## Social
 
