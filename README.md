@@ -27,6 +27,18 @@ The novel behaviors:
 - **Lessons learned** — Knowledge persisted across sessions so the agent doesn't repeat
   mistakes.
 
+## Install
+
+Clone into your [Claude Code skills directory](https://code.claude.com/docs/en/skills):
+
+```bash
+# Personal (all projects)
+git clone https://github.com/adewale/guardrails-skill ~/.claude/skills/guardrails
+
+# Or project-level (one project only)
+git clone https://github.com/adewale/guardrails-skill .claude/skills/guardrails
+```
+
 ## Structure
 
 ```
