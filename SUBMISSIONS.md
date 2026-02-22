@@ -56,7 +56,7 @@ To update: push to GitHub. These sites re-index periodically.
   - Plugin Description: 50-100 words about code quality verification gates
   - Platform: Claude Code
   - GitHub repo link: https://github.com/adewale/guardrails-skill
-  - Company/Organization URL: https://www.fuzzycomputer.com
+  - Company/Organization URL: https://github.com/adewale (personal project)
   - Primary Contact Email: (your email)
   - Plugin Examples: at least 3 use cases
 - **Status:** Not yet submitted. Fill out the form when ready.
