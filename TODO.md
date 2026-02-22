@@ -27,8 +27,11 @@ Steps to get the guardrails skill discoverable across the ecosystem.
 skills.sh auto-indexes skills when users install them via the CLI. No manual submission.
 Listing happens organically as installs accumulate.
 
-- [ ] Verify the skill installs cleanly: `npx skills add adewale/guardrails-skill`
-- [ ] Add `npx skills add` as an alternative install method in the README
+- [x] Verify the skill installs cleanly: `npx skills add adewale/guardrails-skill`
+- [x] Add `npx skills add` as an alternative install method in the README
+- [x] Add skills.sh URL to README: https://skills.sh/adewale/guardrails-skill/guardrails
+- [ ] Owner profile page (https://skills.sh/adewale) is 404 until the skill accumulates
+  enough installs. Profile pages are generated once an owner has meaningful install activity.
 - [ ] Reference: https://skills.sh/docs
 
 ## Claude Code Plugin Marketplace

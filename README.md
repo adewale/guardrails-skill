@@ -29,7 +29,11 @@ The novel behaviors:
 
 ## Install
 
-Clone into your [Claude Code skills directory](https://code.claude.com/docs/en/skills):
+```bash
+npx skills add adewale/guardrails-skill
+```
+
+Or clone into your [Claude Code skills directory](https://code.claude.com/docs/en/skills):
 
 ```bash
 # Personal (all projects)
@@ -38,6 +42,8 @@ git clone https://github.com/adewale/guardrails-skill ~/.claude/skills/guardrail
 # Or project-level (one project only)
 git clone https://github.com/adewale/guardrails-skill .claude/skills/guardrails
 ```
+
+Browse on [skills.sh](https://skills.sh/adewale/guardrails-skill/guardrails).
 
 ## Structure
 
