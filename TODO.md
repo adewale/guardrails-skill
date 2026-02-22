@@ -14,13 +14,9 @@ Steps to get the guardrails skill discoverable across the ecosystem.
 
 ## Validation
 
-- [ ] **Fix agentskills spec validation error.** `agentskills validate` fails because
-  the directory name `guardrails-skill` doesn't match `name: guardrails` in SKILL.md
-  frontmatter. The spec requires these to match. Options:
-  - Rename the repo to `guardrails` (less descriptive as a GitHub repo name)
-  - Change the frontmatter to `name: guardrails-skill` (changes the `/guardrails` slash command to `/guardrails-skill`)
-  - Accept the mismatch — validation passes when users install into `~/.claude/skills/guardrails`
-- [ ] Re-run `agentskills validate` after deciding on the name
+- [x] ~~agentskills spec validation~~ — Discarded. Directory name `guardrails-skill` vs
+  `name: guardrails` mismatch only exists in the source repo. Both `npx skills add` and
+  `git clone ... ~/.claude/skills/guardrails` install into a correctly named directory.
 
 ## skills.sh (Vercel)
 
