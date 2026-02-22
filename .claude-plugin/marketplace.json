@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "guardrails-skill",
+  "description": "Code quality verification gates for coding agents",
+  "owner": {
+    "name": "Ade Oshineye"
+  },
+  "plugins": [
+    {
+      "name": "guardrails",
+      "source": ".",
+      "description": "Code quality verification gates wired into the agent lifecycle",
+      "version": "0.2.0",
+      "homepage": "https://github.com/adewale/guardrails-skill",
+      "license": "MIT"
+    }
+  ]
+}

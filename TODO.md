@@ -32,15 +32,10 @@ Listing happens organically as installs accumulate.
 
 ## Claude Code Plugin Marketplace
 
-Packaging as a plugin enables `/plugin marketplace add adewale/guardrails-skill` installation.
-Requires restructuring the repo and adding manifest files.
-
-- [ ] Evaluate whether plugin packaging is worth the structural change. Current structure
-  has `SKILL.md` at root; plugin format requires `skills/guardrails/SKILL.md`. This
-  would break existing install instructions and git-clone users.
-- [ ] If yes: create `.claude-plugin/marketplace.json` and `.claude-plugin/plugin.json`
-- [ ] If yes: move `SKILL.md` to `skills/guardrails/SKILL.md`
-- [ ] If yes: submit to `anthropics/claude-plugins-official` for verified listing
+- [x] Restructure repo: move SKILL.md to `skills/guardrails/SKILL.md`
+- [x] Create `.claude-plugin/plugin.json`
+- [x] Create `.claude-plugin/marketplace.json`
+- [ ] Submit to `anthropics/claude-plugins-official` for verified listing
 - [ ] Reference: https://code.claude.com/docs/en/plugins
 
 ## Awesome Lists

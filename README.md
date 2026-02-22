@@ -33,6 +33,13 @@ The novel behaviors:
 npx skills add adewale/guardrails-skill
 ```
 
+Or as a Claude Code [plugin](https://code.claude.com/docs/en/plugins):
+
+```
+/plugin marketplace add adewale/guardrails-skill
+/plugin install guardrails@guardrails-skill
+```
+
 Or clone into your [Claude Code skills directory](https://code.claude.com/docs/en/skills):
 
 ```bash
@@ -48,21 +55,27 @@ Browse on [skills.sh](https://skills.sh/adewale/guardrails-skill/guardrails).
 ## Structure
 
 ```
-guardrails/
-├── SKILL.md                             ← Agent reads this (~200 lines)
-├── references/
-│   ├── tool-building.md                   Diagnostic tools, notations, worked examples
-│   └── language-defaults.md               Tool selection table by ecosystem
-├── assets/
-│   └── notation-templates/
-│       └── reproduction-script.sh         Bash scaffold for repro scripts
+guardrails-skill/
+├── .claude-plugin/
+│   ├── plugin.json                        Plugin manifest
+│   └── marketplace.json                   Marketplace catalog
+├── skills/
+│   └── guardrails/
+│       ├── SKILL.md                       ← Agent reads this (~200 lines)
+│       ├── references/
+│       │   ├── tool-building.md             Diagnostic tools, notations, worked examples
+│       │   └── language-defaults.md         Tool selection table by ecosystem
+│       └── assets/
+│           └── notation-templates/
+│               └── reproduction-script.sh   Bash scaffold for repro scripts
+├── CLAUDE.md
+├── LICENSE
 └── README.md
 ```
 
-5 files. SKILL.md is the core — everything the agent needs to know about when checks
-run and what to do when stuck. The references are loaded on demand: `tool-building.md`
-when the circuit breaker fires, `language-defaults.md` when writing test scripts for an
-unfamiliar ecosystem.
+SKILL.md is the core — everything the agent needs to know about when checks run and what
+to do when stuck. The references are loaded on demand: `tool-building.md` when the circuit
+breaker fires, `language-defaults.md` when writing test scripts for an unfamiliar ecosystem.
 
 ## Testing This Skill
 

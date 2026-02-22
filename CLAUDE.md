@@ -6,10 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A Claude Code skill — not a runnable codebase. There is no build system, package manager, test suite, or CI pipeline. The repository contains only markdown documentation and one bash template that together define quality gates for coding agents.
 
-SKILL.md is the core artifact (~220 lines). Everything else supports it:
-- `references/tool-building.md` — diagnostic tool/notation catalog with worked examples (loaded on demand by the circuit breaker)
-- `references/language-defaults.md` — tool selection lookup table by ecosystem (JS/TS, Python, Rust, Go, Java)
-- `assets/notation-templates/reproduction-script.sh` — bash scaffold for repro scripts
+The skill lives in `skills/guardrails/`. SKILL.md is the core artifact (~220 lines). Everything else supports it:
+- `skills/guardrails/references/tool-building.md` — diagnostic tool/notation catalog with worked examples (loaded on demand by the circuit breaker)
+- `skills/guardrails/references/language-defaults.md` — tool selection lookup table by ecosystem (JS/TS, Python, Rust, Go, Java)
+- `skills/guardrails/assets/notation-templates/reproduction-script.sh` — bash scaffold for repro scripts
+
+The repo is also a Claude Code plugin (`.claude-plugin/plugin.json` and `marketplace.json`).
 
 ## Architecture
 
