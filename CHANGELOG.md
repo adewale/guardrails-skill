@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.1] - 2026-02-24
+
+### Added
+- Evaluation section in README with `tessl skill lint` and `tessl skill review` commands
+
 ## [0.3.0] - 2026-02-24
 
 ### Added

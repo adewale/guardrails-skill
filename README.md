@@ -142,6 +142,40 @@ evals. Key scenarios to test:
 - **Integration check:** Does the agent verify new code is wired in (routes registered,
   modules imported) at commit time?
 
+## Evaluation
+
+Use the [tessl CLI](https://docs.tessl.io/evaluate/evaluating-skills) to check
+skill quality before publishing. Two commands:
+
+```bash
+# Validate structure (line count, frontmatter, schema, license, metadata)
+tessl skill lint ./skills/guardrails
+
+# Full review: validation + implementation score + activation score
+tessl skill review ./skills/guardrails
+```
+
+The review score combines three components:
+
+| Component | Method | What it measures |
+|-----------|--------|-----------------|
+| Validation | Deterministic | Line count, frontmatter, schema, license, metadata |
+| Implementation | LLM-assessed | Conciseness, actionability, workflow clarity, progressive disclosure |
+| Activation | LLM-assessed | Description specificity, completeness, trigger term quality, distinctiveness |
+
+**Score interpretation:** 90%+ conforms well to best practices, 70–89% is good
+with minor improvements possible, below 70% likely needs substantial work.
+
+To automatically apply review suggestions:
+
+```bash
+tessl skill review --optimize ./skills/guardrails
+tessl skill review --optimize --yes ./skills/guardrails  # auto-apply without confirmation
+```
+
+The `--optimize` flag iterates up to 10 times, implementing suggestions from each
+review round. Add `--yes` to skip confirmation prompts.
+
 ## References
 
 - Matt Holden, "[Guardrail Coding](https://www.fuzzycomputer.com/posts/guardrail-coding)"
