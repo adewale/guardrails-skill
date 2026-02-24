@@ -10,7 +10,7 @@
       "name": "guardrails",
       "source": ".",
       "description": "Code quality verification gates wired into the agent lifecycle",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "homepage": "https://github.com/adewale/guardrails-skill",
       "license": "MIT"
     }
