@@ -58,7 +58,9 @@ Browse on [skills.sh](https://skills.sh/adewale/guardrails-skill/guardrails).
 guardrails-skill/
 ├── .claude-plugin/
 │   ├── plugin.json                        Plugin manifest
-│   └── marketplace.json                   Marketplace catalog
+│   ├── marketplace.json                   Marketplace catalog
+│   └── hooks/
+│       └── hooks.json                     Lifecycle hooks (plugin path)
 ├── skills/
 │   └── guardrails/
 │       ├── SKILL.md                       ← Agent reads this (~200 lines)
@@ -76,6 +78,52 @@ guardrails-skill/
 SKILL.md is the core — everything the agent needs to know about when checks run and what
 to do when stuck. The references are loaded on demand: `tool-building.md` when the circuit
 breaker fires, `language-defaults.md` when writing test scripts for an unfamiliar ecosystem.
+
+## Hooks
+
+Hooks are registered automatically on installation — no manual setup needed. Both
+installation paths (skill and plugin) wire the same four hooks:
+
+| Hook | Event | Type | What it does |
+|------|-------|------|-------------|
+| Discovery | `SessionStart` | agent | Inspects project for existing config, test runners, conventions |
+| Stop check | `Stop` | prompt | Verifies fast check ran, tests match code changes, circuit breaker respected |
+| Commit gate | `PreToolUse` (Bash) | prompt | Blocks `git commit` until full suite passes, secrets scanned, code reachable |
+| Config protection | `PreToolUse` (Edit/Write) | prompt | Blocks edits to lint/test/CI config — agent must propose changes to user |
+
+- **Skill install** (`npx skills add` or git clone to `.claude/skills/`): hooks are
+  declared in the SKILL.md frontmatter.
+- **Plugin install** (`/plugin install`): hooks are declared in
+  `.claude-plugin/hooks/hooks.json`.
+
+View registered hooks in a session with `/hooks`.
+
+## Verifying Installation
+
+After installing, start a new Claude Code session in a project with existing config
+(e.g., a Node project with package.json, eslint, tests).
+
+**1. Check hook registration.** Run `/hooks` in the session. You should see four hooks
+labeled with their source (`[Skill]` or `[Plugin]` depending on install method):
+`SessionStart`, `Stop`, `PreToolUse` (Bash), and `PreToolUse` (Edit|Write).
+
+**2. Confirm discovery fires.** On session start the status line should show
+"Guardrails: discovering project..." and the agent should report its findings (git
+baseline, detected test runner, project type) before you ask anything.
+
+**3. Test the stop check.** Ask the agent to make a small code change. When it finishes,
+the status line should show "Guardrails: stop check..." — the agent should run the fast
+check (lint, format, types, unit tests) before returning control.
+
+**4. Test the commit gate.** Ask the agent to commit. The status line should show
+"Guardrails: commit gate..." and the agent should run the full suite, scan for secrets,
+and verify new code is reachable before committing.
+
+**5. Test config protection.** Ask the agent to relax an eslint rule or disable a test.
+The status line should show "Guardrails: config protection..." and the agent should
+propose the change to you instead of editing the config directly.
+
+If any hook is missing from `/hooks`, restart the session — hooks are captured at startup.
 
 ## Testing This Skill
 

@@ -1,0 +1,54 @@
+{
+  "description": "Guardrails lifecycle hooks: discovery at session start, fast check on stop, full suite on commit, config protection on edits",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "Run guardrails SessionStart discovery for this project: (1) Record git baseline via `git rev-parse HEAD` and `git status --short`. (2) Discover existing guardrails — inspect config files (eslint, prettier, tsconfig, pyproject.toml, Cargo.toml, etc.), CI pipelines (.github/workflows/, .gitlab-ci.yml), and test directories. Identify project type (backend/API, frontend, full-stack, library/SDK, data pipeline, infrastructure) and determine which check layers apply. (3) Find the fast-check command (format + lint + types + unit tests) and full-suite command by inspecting package.json scripts, Makefile targets, CI workflow steps, README. (4) Read a sample of existing test files to learn conventions (naming, structure, assertion style, mocking, fixtures). (5) Read LESSONS_LEARNED.md if it exists. (6) Check for script/agent-tools/ and read descriptions. Defer to existing conventions — do not switch tools without user approval. Report findings concisely.",
+            "timeout": 120,
+            "statusMessage": "Guardrails: discovering project..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Guardrails stop check. Verify from the session context: (1) The project's fast check (format, lint, type check, unit tests) was run during this turn before the agent stopped. (2) If production code was modified, corresponding tests were also added or updated. (3) Circuit breaker: if the same fix was attempted twice and failed both times, the agent built a diagnostic tool or switched to a structured notation rather than retrying directly a third time. If any requirement is violated, block and explain what's missing. $ARGUMENTS",
+            "timeout": 30,
+            "statusMessage": "Guardrails: verifying stop conditions..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Guardrails commit gate. If this Bash command is a git commit operation: verify from session context that (1) the full test suite was run and passed (not just the fast check), (2) a secrets scan was performed on staged files, (3) the commit message follows the project's conventions, (4) new code is reachable — modules are imported, routes registered, migrations included, entry points updated. Code that passes tests but isn't wired into the application is a deployment gap. If this is NOT a git commit, allow it. $ARGUMENTS",
+            "timeout": 30,
+            "statusMessage": "Guardrails: commit gate..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Guardrails config protection. If the target file is a guardrail configuration file — test scripts, lint config (eslint, ruff, clippy), format config (prettier, black), type-check config (tsconfig, mypy), CI definitions (.github/workflows, .gitlab-ci.yml), pre-commit config, or coverage thresholds — block the edit. The agent must propose config changes to the user rather than applying them directly. Non-config files: allow. $ARGUMENTS",
+            "timeout": 15,
+            "statusMessage": "Guardrails: config protection..."
+          }
+        ]
+      }
+    ]
+  }
+}
