@@ -98,6 +98,33 @@ installation paths (skill and plugin) wire the same four hooks:
 
 View registered hooks in a session with `/hooks`.
 
+## Verifying Installation
+
+After installing, start a new Claude Code session in a project with existing config
+(e.g., a Node project with package.json, eslint, tests).
+
+**1. Check hook registration.** Run `/hooks` in the session. You should see four hooks
+labeled with their source (`[Skill]` or `[Plugin]` depending on install method):
+`SessionStart`, `Stop`, `PreToolUse` (Bash), and `PreToolUse` (Edit|Write).
+
+**2. Confirm discovery fires.** On session start the status line should show
+"Guardrails: discovering project..." and the agent should report its findings (git
+baseline, detected test runner, project type) before you ask anything.
+
+**3. Test the stop check.** Ask the agent to make a small code change. When it finishes,
+the status line should show "Guardrails: stop check..." — the agent should run the fast
+check (lint, format, types, unit tests) before returning control.
+
+**4. Test the commit gate.** Ask the agent to commit. The status line should show
+"Guardrails: commit gate..." and the agent should run the full suite, scan for secrets,
+and verify new code is reachable before committing.
+
+**5. Test config protection.** Ask the agent to relax an eslint rule or disable a test.
+The status line should show "Guardrails: config protection..." and the agent should
+propose the change to you instead of editing the config directly.
+
+If any hook is missing from `/hooks`, restart the session — hooks are captured at startup.
+
 ## Testing This Skill
 
 The skill doesn't ship eval files. Use the skill-creator if you want to run formal
