@@ -58,7 +58,9 @@ Browse on [skills.sh](https://skills.sh/adewale/guardrails-skill/guardrails).
 guardrails-skill/
 ├── .claude-plugin/
 │   ├── plugin.json                        Plugin manifest
-│   └── marketplace.json                   Marketplace catalog
+│   ├── marketplace.json                   Marketplace catalog
+│   └── hooks/
+│       └── hooks.json                     Lifecycle hooks (plugin path)
 ├── skills/
 │   └── guardrails/
 │       ├── SKILL.md                       ← Agent reads this (~200 lines)
@@ -76,6 +78,25 @@ guardrails-skill/
 SKILL.md is the core — everything the agent needs to know about when checks run and what
 to do when stuck. The references are loaded on demand: `tool-building.md` when the circuit
 breaker fires, `language-defaults.md` when writing test scripts for an unfamiliar ecosystem.
+
+## Hooks
+
+Hooks are registered automatically on installation — no manual setup needed. Both
+installation paths (skill and plugin) wire the same four hooks:
+
+| Hook | Event | Type | What it does |
+|------|-------|------|-------------|
+| Discovery | `SessionStart` | agent | Inspects project for existing config, test runners, conventions |
+| Stop check | `Stop` | prompt | Verifies fast check ran, tests match code changes, circuit breaker respected |
+| Commit gate | `PreToolUse` (Bash) | prompt | Blocks `git commit` until full suite passes, secrets scanned, code reachable |
+| Config protection | `PreToolUse` (Edit/Write) | prompt | Blocks edits to lint/test/CI config — agent must propose changes to user |
+
+- **Skill install** (`npx skills add` or git clone to `.claude/skills/`): hooks are
+  declared in the SKILL.md frontmatter.
+- **Plugin install** (`/plugin install`): hooks are declared in
+  `.claude-plugin/hooks/hooks.json`.
+
+View registered hooks in a session with `/hooks`.
 
 ## Testing This Skill
 
