@@ -148,8 +148,16 @@ attempted the same fix twice, it cannot try a third direct fix:
 The breaker resets when the user provides new direction. Persist useful diagnostics
 to `script/agent-tools/`.
 
-**Work in slices.** Stop frequently. A good slice is 1-3 production files plus tests.
-An agent that writes 15 files then discovers a type error in file 3 has wasted 4-15.
+**Completion check.** After the fast check passes, check your task list. If planned
+work items remain and you are not blocked, continue to the next slice — do not hand
+off. Hand off only when: all items are done, the circuit breaker fired, or context
+is running low (in which case, commit completed slices and report remaining items).
+
+**Work in slices, but finish the job.** Verify frequently — a good slice is 1-3
+production files plus tests. An agent that writes 15 files then discovers a type
+error in file 3 has wasted 4-15. But verifying a slice is not completing the task.
+Do not hand off to the user until all planned work items are done or you are
+explicitly blocked.
 
 ### Commit (PreToolUse + git hooks)
 
@@ -234,8 +242,10 @@ one — don't just document the workaround.
 Behaviors the agent follows because the reasoning is sound, not because a hook enforces
 them.
 
-**Planning:** Decide testing layers before writing code. Check problem shape against
-the proactive table in `references/tool-building.md`. Assess security relevance.
+**Planning:** Define completion criteria — what "done" looks like for this task (files
+changed, tests added, routes wired, etc.). Decide testing layers before writing code.
+Check problem shape against the proactive table in `references/tool-building.md`.
+Assess security relevance.
 
 **Code writing:** Format and type-check incrementally. If the same type error reappears
 after one fix, that signals a structural misunderstanding — switch to a notation rather
