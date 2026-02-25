@@ -8,7 +8,7 @@
 - Verification steps in README
 
 ### Changed
-- Extended `SKILL.md` with hook-related guidance (~25 lines)
+- Extended `SKILL.md` with hook-related guidance and task completion enforcement in Stop hook
 - Updated TODO to reflect completed publishing/distribution work
 
 ### Fixed
