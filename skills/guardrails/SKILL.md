@@ -7,31 +7,6 @@ description: >
   use when the user mentions "quality", "testing strategy", "CI pipeline", "guardrails",
   "debugging", or asks how to improve code reliability. If you're writing code or
   trying to understand why code isn't working, this skill applies.
-hooks:
-  SessionStart:
-    - matcher: "startup"
-      hooks:
-        - type: agent
-          prompt: "Run guardrails SessionStart discovery: git baseline, config/CI/test directory inspection, project type identification, fast-check and full-suite command discovery, test convention learning, LESSONS_LEARNED.md, script/agent-tools/. Defer to existing conventions. Report findings."
-          timeout: 120
-          once: true
-          statusMessage: "Guardrails: discovering project..."
-  Stop:
-    - hooks:
-        - type: prompt
-          prompt: "Guardrails stop check. Verify: (1) fast check ran this turn, (2) production code changes have test changes, (3) circuit breaker respected — no 3rd direct retry without diagnostic tool. Block if violated. $ARGUMENTS"
-          statusMessage: "Guardrails: stop check..."
-  PreToolUse:
-    - matcher: "Bash"
-      hooks:
-        - type: prompt
-          prompt: "If git commit: verify full suite passed, secrets scanned, commit message conventional, new code reachable. Else allow. $ARGUMENTS"
-          statusMessage: "Guardrails: commit gate..."
-    - matcher: "Edit|Write"
-      hooks:
-        - type: prompt
-          prompt: "Config protection: block edits to test scripts, lint/format/type config, CI definitions, pre-commit config, coverage thresholds. Agent must propose config changes to user. $ARGUMENTS"
-          statusMessage: "Guardrails: config protection..."
 ---
 
 # Guardrails
