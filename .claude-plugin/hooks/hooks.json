@@ -9,6 +9,7 @@
             "type": "agent",
             "prompt": "Run guardrails SessionStart discovery for this project: (1) Record git baseline via `git rev-parse HEAD` and `git status --short`. (2) Discover existing guardrails — inspect config files (eslint, prettier, tsconfig, pyproject.toml, Cargo.toml, etc.), CI pipelines (.github/workflows/, .gitlab-ci.yml), and test directories. Identify project type (backend/API, frontend, full-stack, library/SDK, data pipeline, infrastructure) and determine which check layers apply. (3) Find the fast-check command (format + lint + types + unit tests) and full-suite command by inspecting package.json scripts, Makefile targets, CI workflow steps, README. (4) Read a sample of existing test files to learn conventions (naming, structure, assertion style, mocking, fixtures). (5) Read LESSONS_LEARNED.md if it exists. (6) Check for script/agent-tools/ and read descriptions. Defer to existing conventions — do not switch tools without user approval. Report findings concisely.",
             "timeout": 120,
+            "once": true,
             "statusMessage": "Guardrails: discovering project..."
           }
         ]
