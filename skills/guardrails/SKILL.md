@@ -145,6 +145,15 @@ Fires on any `git commit`, whether from the agent or a human. Same enforcement f
   Code that passes tests but isn't wired into the application is a deployment gap.
   Confirm: new modules imported? Routes registered? Migrations included? Entry points
   updated? If nothing invokes the new code, that's a failure even with passing tests.
+- **Bug fix retrospective:** When the commit fixes a bug (`fix:` prefix or fixing
+  a reported issue), answer three questions before committing:
+  1. **Detection gap** — Why didn't existing tests or checks catch this? What was
+     missing from the verification layer?
+  2. **Prevention** — What concrete artifact was added to prevent recurrence? A new
+     test case, type constraint, assertion, or lint rule — not just a prose note.
+  3. **Pattern scan** — Search the codebase for the same error pattern. If siblings
+     exist, fix them in this commit or track them explicitly.
+  Block the commit if any question is unanswered.
 
 ---
 
@@ -203,8 +212,8 @@ record, each session starts from zero and risks repeating the same mistakes.
 
 Maintain `LESSONS_LEARNED.md` in the project root. Append an entry when encountering:
 a guardrail failure requiring multiple attempts, a non-obvious project convention, a
-surprising tool behavior, a deployment gap tests didn't catch, a thrashing episode, or
-a diagnostic tool that proved useful. Each entry: **Date**, **Context**, **What
+surprising tool behavior, a deployment gap tests didn't catch, a bug fix retrospective that revealed a detection
+gap, a thrashing episode, or a diagnostic tool that proved useful. Each entry: **Date**, **Context**, **What
 happened**, **Resolution**, **Rule** (concise directive for future sessions).
 
 Commit to version control. If a lesson reveals a missing guardrail, propose adding
