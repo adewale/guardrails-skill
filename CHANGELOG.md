@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0] - 2026-03-08
+
+### Added
+- Bug fix retrospective enforcement in commit gate hook — requires detection gap analysis, concrete prevention, and pattern scan before allowing bug fix commits
+- `once: true` on SessionStart hook to prevent redundant discovery runs
+
+### Changed
+- Removed duplicate hook definitions from SKILL.md frontmatter; `hooks.json` is now the single source of truth for lifecycle hooks
+- Task completion enforcement in Stop hook — agent continues to next slice instead of handing off when planned work remains
+
+### Fixed
+- Marketplace source pointed to dead `/tmp` path; updated to GitHub repo
+
 ## [0.3.0] - 2026-02-24
 
 ### Added

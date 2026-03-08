@@ -33,7 +33,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Guardrails commit gate. If this Bash command is a git commit operation: verify from session context that (1) the full test suite was run and passed (not just the fast check), (2) a secrets scan was performed on staged files, (3) the commit message follows the project's conventions, (4) new code is reachable — modules are imported, routes registered, migrations included, entry points updated. Code that passes tests but isn't wired into the application is a deployment gap. If this is NOT a git commit, allow it. $ARGUMENTS",
+            "prompt": "Guardrails commit gate. If this Bash command is a git commit operation: verify from session context that (1) the full test suite was run and passed (not just the fast check), (2) a secrets scan was performed on staged files, (3) the commit message follows the project's conventions, (4) new code is reachable — modules are imported, routes registered, migrations included, entry points updated. Code that passes tests but isn't wired into the application is a deployment gap. (5) Bug fix retrospective: if this is a bug fix (fix: prefix or fixing a reported bug), verify three things before allowing the commit: (a) detection gap identified — why didn't existing tests catch this, (b) concrete prevention added — a new test, type constraint, assertion, or lint rule, (c) pattern scan performed — searched codebase for the same error pattern and fixed or tracked siblings. Block if any question is unanswered. If this is NOT a git commit, allow it. $ARGUMENTS",
             "timeout": 30,
             "statusMessage": "Guardrails: commit gate..."
           }

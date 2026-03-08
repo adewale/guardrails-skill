@@ -1,7 +1,7 @@
 {
   "name": "guardrails",
   "description": "Code quality verification gates wired into the agent lifecycle",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": {
     "name": "Ade Oshineye"
   },
