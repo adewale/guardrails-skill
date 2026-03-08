@@ -212,9 +212,32 @@ record, each session starts from zero and risks repeating the same mistakes.
 
 Maintain `LESSONS_LEARNED.md` in the project root. Append an entry when encountering:
 a guardrail failure requiring multiple attempts, a non-obvious project convention, a
-surprising tool behavior, a deployment gap tests didn't catch, a bug fix retrospective that revealed a detection
-gap, a thrashing episode, or a diagnostic tool that proved useful. Each entry: **Date**, **Context**, **What
-happened**, **Resolution**, **Rule** (concise directive for future sessions).
+surprising tool behavior, a deployment gap tests didn't catch, a bug fix retrospective
+that revealed a detection gap, a thrashing episode, or a diagnostic tool that proved
+useful.
+
+**Entry template:**
+
+```markdown
+### YYYY-MM-DD — [short title]
+**Context:** What task was being performed.
+**What happened:** The surprising behavior or failure.
+**Resolution:** How it was resolved.
+**Rule:** [One-line directive for future sessions to follow.]
+```
+
+**Example:**
+
+```markdown
+### 2026-02-14 — Custom validation framework
+**Context:** Adding input validation to /users endpoint.
+**What happened:** Started with express-validator, broke existing tests.
+Project uses a custom rule-based validator in src/validation/ — not documented
+anywhere except inline comments in rules.js.
+**Resolution:** Rewrote validation using the custom framework (validate() + rules).
+**Rule:** Always check src/validation/ for this project's validation pattern
+before reaching for a third-party library.
+```
 
 Commit to version control. If a lesson reveals a missing guardrail, propose adding
 one — don't just document the workaround.
