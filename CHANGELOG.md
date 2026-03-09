@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.1] - 2026-03-09
+
+### Added
+- Lessons learned entry template and worked example in SKILL.md
+
 ## [0.4.0] - 2026-03-08
 
 ### Added
