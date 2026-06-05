@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Quality Gates",
+      "description": "Lifecycle checks, circuit breakers, and commit gates for more reliable coding-agent work.",
+      "skills": ["guardrails"]
+    }
+  ]
+}

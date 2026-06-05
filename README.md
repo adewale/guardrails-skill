@@ -1,5 +1,7 @@
 # Guardrails Skill
 
+[![skills.sh](https://skills.sh/b/adewale/guardrails-skill)](https://skills.sh/adewale/guardrails-skill)
+
 Quality gates wired into the agent lifecycle. Not guidance the agent might follow —
 checks that block progress until they pass.
 
@@ -33,6 +35,8 @@ The novel behaviors:
 npx skills add adewale/guardrails-skill
 ```
 
+Skills appear on skills.sh automatically after users install the repo with the skills CLI. Install counts and leaderboard rankings come from anonymous CLI telemetry; opt out with `DISABLE_TELEMETRY=1`. The repo page customization in `skills.sh.json` is picked up after the repository is seen by telemetry and the cache refreshes.
+
 Or as a Claude Code [plugin](https://code.claude.com/docs/en/plugins):
 
 ```
@@ -50,7 +54,7 @@ git clone https://github.com/adewale/guardrails-skill ~/.claude/skills/guardrail
 git clone https://github.com/adewale/guardrails-skill .claude/skills/guardrails
 ```
 
-Browse on [skills.sh](https://skills.sh/adewale/guardrails-skill/guardrails).
+Browse the repo on [skills.sh](https://skills.sh/adewale/guardrails-skill), or open the [guardrails skill page](https://skills.sh/adewale/guardrails-skill/guardrails).
 
 ## Structure
 
