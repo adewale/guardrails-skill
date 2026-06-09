@@ -131,11 +131,19 @@ If any hook is missing from `/hooks`, restart the session — hooks are captured
 
 ## Testing This Skill
 
-The skill doesn't ship eval files. Use the skill-creator if you want to run formal
-evals. Key scenarios to test:
+Shared-harness evals live in `evals/shared-benchmark.json` and are run with the
+workspace harness at `../skill-eval-harness/`:
+
+```bash
+python3 ../skill-eval-harness/skill_benchmark.py validate evals/shared-benchmark.json
+```
+
+Key scenarios to test:
 
 - **SessionStart:** Does the agent discover existing config and conventions before
   writing code? Does it create test scripts if they're missing?
+- **Stop evidence:** When blocking, does the agent cite the fast-check command/status,
+  production files changed, matching test changes or non-production reason, and next action?
 - **Circuit breaker:** When the agent fails twice, does it build a diagnostic (state
   transition table, reproduction script, data flow diagram) instead of trying a third
   direct fix?

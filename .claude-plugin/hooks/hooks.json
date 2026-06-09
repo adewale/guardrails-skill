@@ -20,7 +20,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Guardrails stop check. Verify from the session context: (1) The project's fast check (format, lint, type check, unit tests) was run during this turn before the agent stopped. (2) If production code was modified, corresponding tests were also added or updated. (3) Circuit breaker: if the same fix was attempted twice and failed both times, the agent built a diagnostic tool or switched to a structured notation rather than retrying directly a third time. If any requirement is violated, block and explain what's missing. $ARGUMENTS",
+            "prompt": "Guardrails stop check. Verify from the session context and return a concise decision with evidence, not just a label: Decision: ALLOW/BLOCK; Evidence: fast-check command/status (format, lint, types, unit tests), production files changed, tests changed or non-production reason; Missing/Next action if blocked. Requirements: (1) The project's fast check was run during this turn before the agent stopped. (2) If production code was modified, corresponding tests were also added or updated. (3) Circuit breaker: if the same fix was attempted twice and failed both times, the agent built a diagnostic tool or switched to a structured notation rather than retrying directly a third time. If any requirement is violated, BLOCK and explain what's missing. $ARGUMENTS",
             "timeout": 30,
             "statusMessage": "Guardrails: verifying stop conditions..."
           }

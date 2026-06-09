@@ -6,7 +6,9 @@ description: >
   bug fixes, refactors, troubleshooting, CI/CD setup, or project bootstrapping. Also
   use when the user mentions "quality", "testing strategy", "CI pipeline", "guardrails",
   "debugging", or asks how to improve code reliability. If you're writing code or
-  trying to understand why code isn't working, this skill applies.
+  trying to understand why code isn't working, this skill applies. Do not use for
+  README/prose-only edits, copywriting, or documentation wording changes unless the
+  user asks for code/build/CI verification or the docs change affects generated/runtime output.
 ---
 
 # Guardrails
@@ -33,8 +35,8 @@ table for tool selection by ecosystem. Read these when directed, not proactively
 ## Scope
 
 Not every check applies to every project. The common base applies everywhere: lint,
-format, types, SAST, dependency audit, secrets scan, dead code detection, duplicate
-code detection, coverage, unit tests. Beyond that,
+format, types, SAST, dependency audit, secrets scan, dead/duplicate code detection,
+coverage, unit tests (tool lookup: `references/language-defaults.md`). Beyond that,
 add layers by project type:
 
 - **Backend / API:** integration tests. Usually: property-based, contract, performance.
@@ -47,19 +49,12 @@ add layers by project type:
 Scale up as the project matures. A prototype needs the common base. A production system
 serving users needs the full suite.
 
-> **Common base:** lint, format, types, SAST, dependency audit, secrets scan, dead code
-> detection, duplicate code detection, coverage, unit tests. Dead code and duplicate
-> code tools by ecosystem are listed in `references/language-defaults.md`.
-
 ---
 
 ## Lifecycle Hooks
 
-Everything above is just guidance — the agent might follow it, might not. The hooks
-below are what make guardrails real. They block the agent from proceeding until checks
-pass. The distinction matters: a lint rule that runs in 20ms and fails the build gives
-the agent concrete, unambiguous feedback. A prose instruction in a skill file sits in
-the context window competing for attention with everything else.
+Hooks make guardrails real: they block the agent from proceeding until checks pass. A
+failing check gives concrete, unambiguous feedback; prose alone competes for attention.
 
 ### Test Runner Discovery
 
@@ -105,9 +100,14 @@ without explicit user approval.
 Fires every time the agent returns control. Prevents declaring success without
 verification.
 
-- Run the fast check. Block if it fails.
-- If production code changed, verify tests also changed. Untested code is unverified
-  code, regardless of whether it "looks right."
+Return a decision with evidence, not just a label:
+
+- **ALLOW** only when the fast check passed and the code/test delta is covered.
+- **BLOCK** when the fast check is missing/failed, production code changed without
+  matching tests, or the circuit breaker was skipped.
+- **Evidence to cite:** fast-check command and status (format, lint, types, unit tests),
+  production files changed, tests changed or non-production reason, and required next
+  action. A bare "BLOCK" is not enough evidence.
 
 **Thrashing circuit breaker.** If the fast check fails and the agent has already
 attempted the same fix twice, it cannot try a third direct fix:
@@ -231,12 +231,9 @@ useful.
 ```markdown
 ### 2026-02-14 — Custom validation framework
 **Context:** Adding input validation to /users endpoint.
-**What happened:** Started with express-validator, broke existing tests.
-Project uses a custom rule-based validator in src/validation/ — not documented
-anywhere except inline comments in rules.js.
+**What happened:** Started with express-validator, broke existing tests. Project uses a custom rule-based validator in src/validation/ — not documented anywhere except inline comments in rules.js.
 **Resolution:** Rewrote validation using the custom framework (validate() + rules).
-**Rule:** Always check src/validation/ for this project's validation pattern
-before reaching for a third-party library.
+**Rule:** Always check src/validation/ for this project's validation pattern before reaching for a third-party library.
 ```
 
 Commit to version control. If a lesson reveals a missing guardrail, propose adding
