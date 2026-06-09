@@ -132,10 +132,11 @@ If any hook is missing from `/hooks`, restart the session — hooks are captured
 ## Testing This Skill
 
 Shared-harness evals live in `evals/shared-benchmark.json` and are run with the
-workspace harness at `../skill-eval-harness/`:
+standalone Skill Eval Harness:
 
 ```bash
-python3 ../skill-eval-harness/skill_benchmark.py validate evals/shared-benchmark.json
+python3 -m pip install git+https://github.com/adewale/skill-eval-harness.git@v0.1.0
+skill-benchmark validate evals/shared-benchmark.json
 ```
 
 Key scenarios to test:
