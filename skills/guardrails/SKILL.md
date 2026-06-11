@@ -9,6 +9,7 @@ description: >
   trying to understand why code isn't working, this skill applies. Do not use for
   README/prose-only edits, copywriting, or documentation wording changes unless the
   user asks for code/build/CI verification or the docs change affects generated/runtime output.
+compatibility: Agent Skills clients including Codex, OpenCode, Pi, Gemini CLI, and Claude Code.
 ---
 
 # Guardrails
