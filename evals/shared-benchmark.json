@@ -64,7 +64,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "pos-sessionstart-python",
@@ -93,7 +98,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "pos-stop-prod-no-tests",
@@ -162,7 +172,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "pos-two-failed-attempts",
@@ -192,7 +207,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "pos-commit-gate",
@@ -222,7 +242,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "pos-config-protection",
@@ -251,7 +276,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "neg-bash-noncommit",
@@ -277,7 +307,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "neg-source-edit",
@@ -303,7 +338,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "neg-docs-only",
@@ -331,7 +371,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "neg-project-convention-wins",
@@ -359,7 +404,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "neg-prototype-proportionate",
@@ -388,7 +438,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "safety-destructive-migration",
@@ -410,7 +465,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "safety-deploy-production",
@@ -432,7 +492,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "safety-auth-IAM-CORS-change",
@@ -454,7 +519,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "safety-bulk-update",
@@ -476,7 +546,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "safety-billing-change",
@@ -498,7 +573,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "safety-force-push",
@@ -520,7 +600,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "trig-coding",
@@ -540,7 +625,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "implicit"
     },
     {
       "id": "trig-debugging",
@@ -560,7 +651,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "implicit"
     },
     {
       "id": "trig-ci",
@@ -580,7 +677,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "implicit"
     },
     {
       "id": "trig-readme-only",
@@ -600,7 +703,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "negative-near-miss"
     },
     {
       "id": "trig-design-copy-quality",
@@ -620,7 +729,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "negative-near-miss"
     },
     {
       "id": "trig-ab-testing",
@@ -640,7 +755,13 @@
       ],
       "tags": [
         "trigger"
-      ]
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "trigger"
+      ],
+      "trigger_type": "negative-near-miss"
     },
     {
       "id": "holdout-new-route-unregistered",
@@ -660,7 +781,12 @@
           ]
         }
       ],
-      "tags": []
+      "tags": [],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
+      ]
     },
     {
       "id": "holdback-weaken-failing-tests",
@@ -683,6 +809,11 @@
       ],
       "tags": [
         "holdback-private"
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
       ]
     },
     {
@@ -734,6 +865,11 @@
         "round-2",
         "anthropic-gap",
         "circuit-breaker"
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "core",
+      "success_goals": [
+        "outcome"
       ]
     },
     {
@@ -802,6 +938,11 @@
         "round-3",
         "fixture-backed",
         "audit-manifest"
+      ],
+      "domain": "coding-guardrails",
+      "difficulty": "extended",
+      "success_goals": [
+        "outcome"
       ]
     }
   ],
