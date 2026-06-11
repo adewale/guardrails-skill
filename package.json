@@ -1,0 +1,35 @@
+{
+  "name": "guardrails-skill",
+  "version": "0.4.2",
+  "private": true,
+  "license": "MIT",
+  "description": "Agent Skill for code quality guardrails, verification gates, circuit breakers, and commit readiness.",
+  "keywords": [
+    "agent-skills",
+    "codex",
+    "opencode",
+    "pi",
+    "gemini",
+    "claude-code"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adewale/guardrails-skill.git"
+  },
+  "homepage": "https://github.com/adewale/guardrails-skill#readme",
+  "skill": {
+    "entry": "skills/guardrails/SKILL.md",
+    "harnesses": [
+      "codex",
+      "opencode",
+      "pi",
+      "gemini",
+      "claude-code"
+    ]
+  },
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}

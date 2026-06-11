@@ -37,6 +37,20 @@ npx skills add adewale/guardrails-skill
 
 Skills appear on skills.sh automatically after users install the repo with the skills CLI. Install counts and leaderboard rankings come from anonymous CLI telemetry; opt out with `DISABLE_TELEMETRY=1`. The repo page customization in `skills.sh.json` is picked up after the repository is seen by telemetry and the cache refreshes.
 
+## Agent compatibility
+
+The installable skill directory is `skills/guardrails`. It uses the Agent Skills `SKILL.md` format and is configured for Codex, OpenCode, Pi, Gemini CLI, and Claude Code.
+
+Codex, OpenCode, Pi, and Gemini CLI can load the Guardrails skill instructions. Claude Code plugin installs additionally wire the bundled lifecycle hooks. In other agents, treat the hooks as an explicit checklist unless you add native hooks/extensions for that host.
+
+| Agent/client | Install or use |
+|---|---|
+| Codex | `cp -R skills/guardrails ~/.codex/skills/guardrails` |
+| OpenCode | `cp -R skills/guardrails ~/.config/opencode/skills/guardrails` or use `.opencode/skills/guardrails` in a project |
+| Pi | `pi install https://github.com/adewale/guardrails-skill` or `pi --skill skills/guardrails` |
+| Gemini CLI | `gemini skills install https://github.com/adewale/guardrails-skill --path skills/guardrails` or copy to `.gemini/skills/guardrails` |
+| Claude Code | `npx skills add adewale/guardrails-skill` or copy to `.claude/skills/guardrails` |
+
 Or as a Claude Code [plugin](https://code.claude.com/docs/en/plugins):
 
 ```
