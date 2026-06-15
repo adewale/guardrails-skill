@@ -58,14 +58,17 @@ Or as a Claude Code [plugin](https://code.claude.com/docs/en/plugins):
 /plugin install guardrails@guardrails-skill
 ```
 
-Or clone into your [Claude Code skills directory](https://code.claude.com/docs/en/skills):
+Or clone the repo and copy only the installable skill directory into your [Claude Code skills directory](https://code.claude.com/docs/en/skills):
 
 ```bash
+git clone https://github.com/adewale/guardrails-skill /tmp/guardrails-skill
+
 # Personal (all projects)
-git clone https://github.com/adewale/guardrails-skill ~/.claude/skills/guardrails
+cp -R /tmp/guardrails-skill/skills/guardrails ~/.claude/skills/guardrails
 
 # Or project-level (one project only)
-git clone https://github.com/adewale/guardrails-skill .claude/skills/guardrails
+mkdir -p .claude/skills
+cp -R /tmp/guardrails-skill/skills/guardrails .claude/skills/guardrails
 ```
 
 Browse the repo on [skills.sh](https://skills.sh/adewale/guardrails-skill), or open the [guardrails skill page](https://skills.sh/adewale/guardrails-skill/guardrails).
@@ -109,7 +112,7 @@ installation paths (skill and plugin) wire the same four hooks:
 | Commit gate | `PreToolUse` (Bash) | prompt | Blocks `git commit` until full suite passes, secrets scanned, code reachable |
 | Config protection | `PreToolUse` (Edit/Write) | prompt | Blocks edits to lint/test/CI config — agent must propose changes to user |
 
-- **Skill install** (`npx skills add` or git clone to `.claude/skills/`): hooks are
+- **Skill install** (`npx skills add` or copying `skills/guardrails` to `.claude/skills/`): hooks are
   declared in the SKILL.md frontmatter.
 - **Plugin install** (`/plugin install`): hooks are declared in
   `.claude-plugin/hooks/hooks.json`.
