@@ -152,7 +152,7 @@ Shared-harness evals live in `evals/shared-benchmark.json` and are run with the
 standalone Skill Eval Harness:
 
 ```bash
-uv tool install git+https://github.com/adewale/skill-eval-harness.git@v0.3.0
+uv tool install git+https://github.com/adewale/skill-eval-harness.git@v0.4.2
 skill-benchmark validate evals/shared-benchmark.json
 ```
 
