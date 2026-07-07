@@ -1,0 +1,5 @@
+@@ -145,4 +145,0 @@
+-- **Integration/deployment check:** Verify the change is reachable, not just correct.
+-  Code that passes tests but isn't wired into the application is a deployment gap.
+-  Confirm: new modules imported? Routes registered? Migrations included? Entry points
+-  updated? If nothing invokes the new code, that's a failure even with passing tests.

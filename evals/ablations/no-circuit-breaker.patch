@@ -1,0 +1,14 @@
+@@ -113,13 +113,0 @@
+-**Thrashing circuit breaker.** If the fast check fails and the agent has already
+-attempted the same fix twice, it cannot try a third direct fix:
+-
+-1. **After attempt 1 fails:** Try a direct fix. Normal.
+-2. **After attempt 2 fails:** Stop. Build a diagnostic tool or switch to a notation
+-   (read `references/tool-building.md`). Two failed attempts means the agent's model
+-   of the problem is wrong — re-reading the same code produces the same wrong model.
+-   New information or a different representation breaks the loop.
+-3. **After attempt 3 fails (with diagnostic):** Stop entirely. Report to the user:
+-   what's failing, what was tried, what the diagnostic revealed, why it isn't converging.
+-
+-The breaker resets when the user provides new direction. Persist useful diagnostics
+-to `script/agent-tools/`.
