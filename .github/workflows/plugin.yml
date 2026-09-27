@@ -1,0 +1,27 @@
+name: plugin
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      # Claude Code's own validator for plugin.json, marketplace.json and hooks.json, plus
+      # a throwaway install that must register every hook event. No model or credentials.
+      - name: Install Claude Code CLI (pinned)
+        run: npm install -g @anthropic-ai/claude-code@2.1.283
+      - name: Validate plugin and check hook registration
+        run: python3 scripts/check_plugin.py

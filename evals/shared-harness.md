@@ -3,13 +3,20 @@
 This repo participates in the shared Skill Eval Harness:
 
 - Repo: https://github.com/adewale/skill-eval-harness
-- Version: `>=0.3.0`
+- Version: `==0.6.0` (pinned; the same pin is in the manifest's `harness.version` and in CI)
 - Manifest: `evals/shared-benchmark.json`
 
-Install the harness from GitHub with [uv](https://docs.astral.sh/uv/):
+Install the pinned harness from PyPI with [uv](https://docs.astral.sh/uv/):
 
 ```sh
-uv tool install git+https://github.com/adewale/skill-eval-harness.git@v0.3.0
+uv tool install skill-eval-harness==0.6.0
+```
+
+CI (`.github/workflows/eval-manifest.yml`) runs the model-free gate on every push and PR; no model or API key is involved:
+
+```sh
+uvx --from skill-eval-harness==0.6.0 skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json
+uvx --from skill-eval-harness==0.6.0 skill-benchmark audit-manifest evals/shared-benchmark.json --fail-on-blockers
 ```
 
 Splits:

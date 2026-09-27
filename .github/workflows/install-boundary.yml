@@ -15,3 +15,5 @@ jobs:
           python-version: '3.x'
       - name: Check installable skill boundary
         run: python3 scripts/check_install_boundary.py
+      - name: Check SKILL.md line budget
+        run: python3 scripts/check_skill_budget.py
