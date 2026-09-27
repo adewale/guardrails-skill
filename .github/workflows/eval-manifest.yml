@@ -1,0 +1,22 @@
+name: eval-manifest
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  eval-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v9.0.0
+      # Model-free and key-free: manifest shape, regex compilation, prompt leakage,
+      # ablation targets, and audit blockers, with the harness version pinned.
+      - name: Validate shared benchmark manifest (skill-eval-harness 0.6.0)
+        run: uvx --from skill-eval-harness==0.6.0 skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json
+      - name: Audit shared benchmark manifest
+        run: uvx --from skill-eval-harness==0.6.0 skill-benchmark audit-manifest evals/shared-benchmark.json --fail-on-blockers
