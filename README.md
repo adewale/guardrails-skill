@@ -84,7 +84,7 @@ guardrails-skill/
 │       └── hooks.json                     Lifecycle hooks (plugin path)
 ├── skills/
 │   └── guardrails/
-│       ├── SKILL.md                       ← Agent reads this (~200 lines)
+│       ├── SKILL.md                       ← Agent reads this (≤275-line budget, CI-enforced)
 │       ├── references/
 │       │   ├── tool-building.md             Diagnostic tools, notations, worked examples
 │       │   └── language-defaults.md         Tool selection table by ecosystem
@@ -102,8 +102,8 @@ breaker fires, `language-defaults.md` when writing test scripts for an unfamilia
 
 ## Hooks
 
-Hooks are registered automatically on installation — no manual setup needed. Both
-installation paths (skill and plugin) wire the same four hooks:
+Hooks are registered automatically when you install the **Claude Code plugin** — no manual
+setup needed. The plugin wires four hooks:
 
 | Hook | Event | Type | What it does |
 |------|-------|------|-------------|
@@ -112,10 +112,13 @@ installation paths (skill and plugin) wire the same four hooks:
 | Commit gate | `PreToolUse` (Bash) | prompt | Blocks `git commit` until full suite passes, secrets scanned, code reachable |
 | Config protection | `PreToolUse` (Edit/Write) | prompt | Blocks edits to lint/test/CI config — agent must propose changes to user |
 
-- **Skill install** (`npx skills add` or copying `skills/guardrails` to `.claude/skills/`): hooks are
-  declared in the SKILL.md frontmatter.
 - **Plugin install** (`/plugin install`): hooks are declared in
-  `.claude-plugin/hooks/hooks.json`.
+  `.claude-plugin/hooks/hooks.json`, which `.claude-plugin/plugin.json` points to via its
+  `hooks` field. CI (`scripts/check_plugin.py`) validates both files with Claude Code's own
+  validator and checks that an installed copy of the plugin registers these hook events.
+- **Skill install** (`npx skills add` or copying `skills/guardrails` to `.claude/skills/`):
+  no hooks are registered (they were removed from the SKILL.md frontmatter in 0.4.0);
+  treat the hooks as a checklist, as in other agents.
 
 View registered hooks in a session with `/hooks`.
 
@@ -125,7 +128,7 @@ After installing, start a new Claude Code session in a project with existing con
 (e.g., a Node project with package.json, eslint, tests).
 
 **1. Check hook registration.** Run `/hooks` in the session. You should see four hooks
-labeled with their source (`[Skill]` or `[Plugin]` depending on install method):
+labeled with their source (`[Plugin]`):
 `SessionStart`, `Stop`, `PreToolUse` (Bash), and `PreToolUse` (Edit|Write).
 
 **2. Confirm discovery fires.** On session start the status line should show
@@ -152,8 +155,8 @@ Shared-harness evals live in `evals/shared-benchmark.json` and are run with the
 standalone Skill Eval Harness:
 
 ```bash
-uv tool install git+https://github.com/adewale/skill-eval-harness.git@v0.4.2
-skill-benchmark validate evals/shared-benchmark.json
+uv tool install skill-eval-harness==0.6.0
+skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json
 ```
 
 Key scenarios to test:
