@@ -11,10 +11,12 @@ import json
 import os
 import shlex
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_fixture_oracle import GOOD
 
 ROOT = Path(__file__).resolve().parents[1]
