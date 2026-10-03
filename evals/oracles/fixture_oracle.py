@@ -9,9 +9,7 @@ from pathlib import Path
 
 CHECKS = {
   "round3-fixture-circuit-breaker": {
-    "regex": [
-      "(?m)^\\s*(?:#+\\s*)?(?:Guardrails\\s+Stop-Hook\\s+)?(?:Decision\\s*:\\s*)?BLOCK(?:\\b|[.!?:])"
-    ],
+    "decision": "BLOCK",
     "any": [
       [
         "Attempt 1",
@@ -29,8 +27,23 @@ CHECKS = {
   }
 }
 
+# A decision is a "Decision:" field (any case, optional "Guardrails Stop-Hook" heading
+# prefix, markdown emphasis) or a line that is just an upper-case ALLOW/BLOCK label,
+# optionally followed by punctuation and a reason. Prose such as "Block: none.",
+# "block the commit" or a quoted rule "**ALLOW** only when ..." is not a decision.
+DECISION_FIELD = re.compile(
+    r"^[\s#>*_`-]*(?:Guardrails\s+Stop[- ]Hook\s+)?Decision[\s*_`]*:[\s*_`]*(allow|block)\b",
+    re.IGNORECASE | re.MULTILINE,
+)
+DECISION_LABEL = re.compile(r"^[\s#>*_`]*(ALLOW|BLOCK)[*_`]*[ \t]*(?:$|[.:!(\u2013\u2014-])", re.MULTILINE)
+
 def contains(text: str, needle: str) -> bool:
     return needle.casefold() in text.casefold()
+
+def decisions(text: str) -> list[str]:
+    found = [(m.start(), m.group(1).upper()) for m in DECISION_FIELD.finditer(text)]
+    found += [(m.start(), m.group(1)) for m in DECISION_LABEL.finditer(text)]
+    return [label for _, label in sorted(set(found))]
 
 def main() -> int:
     if len(sys.argv) != 3:
@@ -49,6 +62,13 @@ def main() -> int:
     text = out.read_text(encoding="utf-8", errors="replace")
     failures: list[str] = []
     checks = 0
+    if "decision" in spec:
+        checks += 1
+        found = decisions(text)
+        if not found:
+            failures.append(f"no decision label; expected {spec['decision']}")
+        elif set(found) != {spec["decision"]}:
+            failures.append(f"decision labels {found}; expected only {spec['decision']}")
     for needle in spec.get("all", []):
         checks += 1
         if not contains(text, needle):
