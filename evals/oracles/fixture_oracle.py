@@ -36,7 +36,7 @@ DECISION_FIELD = re.compile(
     r"^[\s#>*_`-]*(?:Guardrails\s+Stop[- ]Hook\s+)?Decision[\s*_`]*:[\s*_`]*(allow|block)\b",
     re.IGNORECASE | re.MULTILINE,
 )
-DECISION_LABEL = re.compile(r"^[\s#>*_`-]*(ALLOW|BLOCK)[*_`]*(?:[ \t]*$|[^\w\s]|[ \t]+[^\w\s])", re.MULTILINE)
+DECISION_LABEL = re.compile(r"^[\s#>*_`-]*(ALLOW|BLOCK)[*_`]*(?![*_`])(?:[ \t]*$|[^\w\s]|[ \t]+[^\w\s])", re.MULTILINE)
 
 def contains(text: str, needle: str) -> bool:
     return needle.casefold() in text.casefold()

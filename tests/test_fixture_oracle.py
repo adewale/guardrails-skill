@@ -63,7 +63,8 @@ class FixtureOracleTest(unittest.TestCase):
                 self.assertVerdict(GOOD.replace("Decision: BLOCK", first_line), 0, "OK fixture oracle")
 
     def test_quoting_the_allow_rule_is_not_a_decision(self) -> None:
-        quoted = GOOD + "\n**ALLOW** only when the fast check passed and the code/test delta is covered.\n"
+        # No Decision: field, so the bare-label rule decides; the quoted rule must not count.
+        quoted = GOOD.replace("Decision: BLOCK", "BLOCK") + "\n**ALLOW** only when the fast check passed and the code/test delta is covered.\n"
         self.assertVerdict(quoted, 0, "OK fixture oracle")
 
     def test_allow_lines_explaining_a_block_field_are_not_decisions(self) -> None:
