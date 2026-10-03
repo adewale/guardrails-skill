@@ -1,0 +1,22 @@
+name: tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      # uvx runs the pinned Skill Eval Harness for the model-free grading test.
+      - uses: astral-sh/setup-uv@v9.0.0
+      - name: Unit tests for repo scripts and eval oracles
+        run: python3 -m unittest discover -s tests -v
