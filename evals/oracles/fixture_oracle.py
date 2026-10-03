@@ -28,22 +28,22 @@ CHECKS = {
 }
 
 # A decision is a "Decision:" field (any case, optional "Guardrails Stop-Hook" heading
-# prefix, markdown emphasis) or a line that is just an upper-case ALLOW/BLOCK label,
-# optionally followed by punctuation and a reason. Prose such as "Block: none.",
-# "block the commit" or a quoted rule "**ALLOW** only when ..." is not a decision.
+# prefix, markdown emphasis). Without one, a line that opens with an upper-case
+# ALLOW/BLOCK label, then ends or continues with punctuation, is the decision. Prose such
+# as "block the commit" or a quoted rule "**ALLOW** only when ..." is not a decision, and
+# once a Decision field exists, other ALLOW/BLOCK lines are explanation, not decisions.
 DECISION_FIELD = re.compile(
     r"^[\s#>*_`-]*(?:Guardrails\s+Stop[- ]Hook\s+)?Decision[\s*_`]*:[\s*_`]*(allow|block)\b",
     re.IGNORECASE | re.MULTILINE,
 )
-DECISION_LABEL = re.compile(r"^[\s#>*_`]*(ALLOW|BLOCK)[*_`]*[ \t]*(?:$|[.:!(\u2013\u2014-])", re.MULTILINE)
+DECISION_LABEL = re.compile(r"^[\s#>*_`-]*(ALLOW|BLOCK)[*_`]*(?:[ \t]*$|[^\w\s]|[ \t]+[^\w\s])", re.MULTILINE)
 
 def contains(text: str, needle: str) -> bool:
     return needle.casefold() in text.casefold()
 
 def decisions(text: str) -> list[str]:
-    found = [(m.start(), m.group(1).upper()) for m in DECISION_FIELD.finditer(text)]
-    found += [(m.start(), m.group(1)) for m in DECISION_LABEL.finditer(text)]
-    return [label for _, label in sorted(set(found))]
+    fields = [m.group(1).upper() for m in DECISION_FIELD.finditer(text)]
+    return fields or [m.group(1) for m in DECISION_LABEL.finditer(text)]
 
 def main() -> int:
     if len(sys.argv) != 3:

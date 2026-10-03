@@ -48,6 +48,12 @@ class FixtureOracleTest(unittest.TestCase):
         for first_line in (
             "BLOCK",
             "BLOCK: same fix attempted twice",
+            "BLOCK. Circuit breaker tripped",
+            "BLOCK, circuit breaker tripped",
+            "BLOCK \u2014 circuit breaker tripped",
+            "BLOCK \u2192 build a diagnostic",
+            "### BLOCK",
+            "- Decision: BLOCK",
             "**Decision:** BLOCK",
             "**BLOCK**",
             "## Guardrails Stop-Hook Decision: BLOCK",
@@ -59,6 +65,19 @@ class FixtureOracleTest(unittest.TestCase):
     def test_quoting_the_allow_rule_is_not_a_decision(self) -> None:
         quoted = GOOD + "\n**ALLOW** only when the fast check passed and the code/test delta is covered.\n"
         self.assertVerdict(quoted, 0, "OK fixture oracle")
+
+    def test_allow_lines_explaining_a_block_field_are_not_decisions(self) -> None:
+        for line in ("ALLOW \u2014 would only apply if the fast check passed", "Previous decision: ALLOW (attempt 2)"):
+            with self.subTest(line=line):
+                self.assertVerdict(GOOD + line + "\n", 0, "OK fixture oracle")
+
+    def test_any_alternative_in_any_case_satisfies_a_group(self) -> None:
+        output = """\
+        BLOCK
+        the same fix failed twice.
+        next action: write a REPRODUCTION SCRIPT before editing again.
+        """
+        self.assertVerdict(output, 0, "OK fixture oracle")
 
     def test_allow_decision_fails_even_with_all_keywords(self) -> None:
         self.assertVerdict(GOOD.replace("Decision: BLOCK", "Decision: ALLOW"), 1, "expected only BLOCK")

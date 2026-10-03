@@ -44,27 +44,42 @@ class InstallBoundaryTest(unittest.TestCase):
         self.assertIn("skills/guardrails", proc.stdout)
 
     def test_repo_only_directory_inside_skill_fails(self) -> None:
-        for banned in ("evals", "tests", "__pycache__"):
+        for banned in (".git", ".github", "__pycache__", "eval-runs", "evals", "node_modules", "research",
+                       "skill-development", "tests"):
             with self.subTest(banned=banned):
                 planted = self.root / SKILL / "references" / banned / "x.md"
                 planted.parent.mkdir(parents=True)
-                planted.write_text("repo-only\n", encoding="utf-8")
-                self.assertFailsNaming(f"{SKILL}/references/{banned}")
-                shutil.rmtree(planted.parent)
+                try:
+                    planted.write_text("repo-only\n", encoding="utf-8")
+                    self.assertFailsNaming(f"{SKILL}/references/{banned}")
+                finally:
+                    shutil.rmtree(planted.parent)
 
     def test_banned_file_inside_skill_fails(self) -> None:
-        for name in ("module.pyc", ".DS_Store"):
+        for name in ("module.pyc", "module.pyo", ".DS_Store"):
             with self.subTest(name=name):
                 planted = self.root / SKILL / "assets" / name
-                planted.write_bytes(b"\0")
-                self.assertFailsNaming(name)
-                planted.unlink()
+                try:
+                    planted.write_bytes(b"\0")
+                    self.assertFailsNaming(name)
+                finally:
+                    planted.unlink()
 
     def test_near_miss_names_pass(self) -> None:
         # Similar names that are not repo-only artifacts must not trip the check.
         (self.root / SKILL / "references" / "testing-notes.md").write_text("ok\n", encoding="utf-8")
         (self.root / SKILL / "assets" / "evals.md").write_text("ok\n", encoding="utf-8")
         self.assertEqual(self.check().returncode, 0)
+
+    def test_missing_declared_skill_directory_fails(self) -> None:
+        shutil.rmtree(self.root / SKILL)
+        self.assertFailsNaming("directory does not exist")
+
+    def test_invalid_install_metadata_is_an_error(self) -> None:
+        (self.root / "package.json").write_text("{not json", encoding="utf-8")
+        proc = self.check()
+        self.assertEqual(proc.returncode, 2, proc.stdout + proc.stderr)
+        self.assertIn("package.json is not valid JSON", proc.stderr)
 
     def test_missing_skill_md_fails(self) -> None:
         (self.root / SKILL / "SKILL.md").unlink()
