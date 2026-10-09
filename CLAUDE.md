@@ -25,9 +25,9 @@ Repo-only files (never installed):
 | Install boundary (no repo-only files in `skills/guardrails/`) | `python3 scripts/check_install_boundary.py` | `install-boundary.yml` |
 | SKILL.md line budget | `python3 scripts/check_skill_budget.py` | `install-boundary.yml` |
 | Plugin + hooks schema (Claude Code's own validator) and hook registration | `python3 scripts/check_plugin.py` (needs the `claude` CLI; no model or credentials) | `plugin.yml` |
-| Eval manifest, model-free | `uvx --from skill-eval-harness==0.6.0 skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json` and `... audit-manifest evals/shared-benchmark.json --fail-on-blockers` | `eval-manifest.yml` |
+| Eval manifest, model-free | `uvx --from skill-eval-harness==0.6.0 skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json` and `... audit-manifest evals/shared-benchmark.json --fail-on-blockers` | `install-boundary.yml` |
 | Lint | `uvx ruff@0.16.0 check .` | `ruff.yml` |
-| Unit tests (eval oracle, install boundary) | `python3 -m unittest discover -s tests` | `tests.yml` |
+| Unit tests (eval oracle, install boundary, plugin.json hooks pointer) | `python3 -m unittest discover -s tests` | `install-boundary.yml` |
 
 None of these checks runs the hooks themselves. The hooks are `prompt`/`agent` hooks that need a model, so whether they fire and block is verified manually (README, "Verifying Installation").
 

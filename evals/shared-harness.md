@@ -12,7 +12,7 @@ Install the pinned harness from PyPI with [uv](https://docs.astral.sh/uv/):
 uv tool install skill-eval-harness==0.6.0
 ```
 
-CI (`.github/workflows/eval-manifest.yml`) runs the model-free gate on every push and PR; no model or API key is involved:
+CI (the `install-boundary` job in `.github/workflows/install-boundary.yml`) runs the model-free gate on every push and PR; no model or API key is involved:
 
 ```sh
 uvx --from skill-eval-harness==0.6.0 skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json
