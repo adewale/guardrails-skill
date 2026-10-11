@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- Plugin hooks were never registered: `.claude-plugin/plugin.json` did not point at `.claude-plugin/hooks/hooks.json`, which is not a default hooks location, so Claude Code installed the plugin with 0 hooks. `plugin.json` now declares `"hooks": "./.claude-plugin/hooks/hooks.json"`.
+- `CLAUDE.md` no longer claims there is no package manager, tests or CI, and `README.md` no longer claims skill installs register hooks.
+
+### Added
+- CI: `scripts/check_plugin.py` validates the plugin, marketplace and hooks with `claude plugin validate` and checks that a throwaway install registers every hook event in `hooks.json`.
+- CI: `scripts/check_skill_budget.py` enforces a 275-line `SKILL.md` budget (it is 260) and keeps `CLAUDE.md` stating the same number.
+- CI: the pinned (`==0.6.0`) Skill Eval Harness model-free manifest gate. Trigger cases declare `should_trigger`.
+
 ## [0.4.1] - 2026-03-09
 
 ### Added

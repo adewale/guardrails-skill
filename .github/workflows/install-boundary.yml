@@ -13,5 +13,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+      # uvx runs the pinned Skill Eval Harness (manifest gate and the model-free grading test).
+      - uses: astral-sh/setup-uv@v9.0.0
       - name: Check installable skill boundary
         run: python3 scripts/check_install_boundary.py
+      - name: Check SKILL.md line budget
+        run: python3 scripts/check_skill_budget.py
+      # Model-free and key-free: manifest shape, regex compilation, prompt leakage,
+      # ablation targets, and audit blockers, with the harness version pinned.
+      - name: Validate shared benchmark manifest (skill-eval-harness 0.6.0)
+        run: uvx --from skill-eval-harness==0.6.0 skill-benchmark validate --strict-leakage --check-ablations evals/shared-benchmark.json
+      - name: Audit shared benchmark manifest
+        run: uvx --from skill-eval-harness==0.6.0 skill-benchmark audit-manifest evals/shared-benchmark.json --fail-on-blockers
+      - name: Unit tests for repo scripts and eval oracles
+        run: python3 -m unittest discover -s tests -v
